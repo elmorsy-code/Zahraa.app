@@ -5,6 +5,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'zahraa-android-project.zip'
       - 'package.json'
       - 'src/**'
       - 'public/**'
@@ -20,6 +21,11 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+      - name: Extract uploaded project archive if present
+        run: |
+          if [ -f zahraa-android-project.zip ]; then
+            unzip -o zahraa-android-project.zip -d .
+          fi
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
